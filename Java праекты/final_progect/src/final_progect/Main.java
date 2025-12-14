@@ -1,0 +1,95 @@
+package final_progect;
+
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) throws InterruptedException {
+		Scanner sc = new Scanner(System.in);
+		   double g = 10;
+		   double v0 = 40;   // ????
+		   double L_max = (v0*v0)/g;
+		   double S = (int)(Math.random()*(int)(L_max-10))+10;  // расстояние до цели  ????
+		     double r = (int)(Math.random()*(int)(v0/2))+1;  // размер цели ???
+		     for(int i = 0;i < S + r;i++) {  // отрисовка мишени
+		       if(i < S-r) {
+		        System.out.print(' ');
+		       }else {
+		        System.out.print('_');
+		       }
+		      }
+		     System.out.println();
+		      
+		      
+		      
+		      
+		    double a = (sc.nextDouble()*Math.PI)/180;
+		    double y0 = 0;
+		    double v0x = v0 * Math.cos(a);
+		    double v0y = v0 * Math.sin(a);
+		    double x = 0;
+		    double y = 0;
+		    double t = 0; // временные значения скорости и времени
+		    double l = ((v0*v0)*Math.sin(2*a))/g; // расстояние которое пролетит тело
+		    double h = (v0y*v0y)/(2*g);
+		    double dt = 0.1;
+		    System.out.println("S : "+(S));
+		    System.out.println((Math.round(h)));
+		    System.out.println("r : "+(r));
+		    System.out.println(r);
+		    System.out.println(S);
+		    System.out.println(Math.sin(a));
+		    // создание массива 
+		    char[][] path = new char[(int)((h+10)/2)][(int)(l+10)];
+		    
+		    
+		    
+		    
+		    do {  // истинная отрисовка
+		     System.out.println("\n".repeat(100)); // очистка консоли
+		     t += dt;
+		     x = v0x*t; // зависимость x(t)
+		     y = y0 + v0y * t - (g*t*t)/2; // зависимость y(t)
+		     path[(int)(y/2)][(int)(x)] = '.';
+		     
+		     
+		     for(int i = (int)(h/2);i > 0 ;i--) {  //  вывод массива
+		      for(int j = 0; j < (int)(l);j++){
+		       System.out.print(path[i][j]);
+		      }
+		      System.out.println();
+		     }
+		     
+		     
+		     
+		     Thread.sleep((int)(dt*1000)); // пауза
+		     
+		    }while(x < l && y >= 0);
+		    
+		    
+		    
+		    
+		    
+		    
+		    
+		    // временное заполнение массива
+		   
+//		     for(double t = 0;x < l && y >= 0;t += 0.01) { x = v0x*t; // зависимость x(t)
+//		     y = y0 + v0y * t - (g*t*t)/2; // зависимость y(t) 
+//		     path[(int)(y/2)][(int)(x)]= '.';
+//		     
+//		     
+//		     
+//		     
+//		     }
+		    
+		    
+		    //System.out.println("L_max : "+(L_max));
+		    if(S + r > l && S - r < l) {
+		     System.out.println("Попал");
+		    }else {
+		     System.out.println("Не попал");
+		    }
+	}
+
+}
